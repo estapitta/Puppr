@@ -1,5 +1,6 @@
 import React from "react";
 const puppyData = require("../resources/puppyDb.json");
+import puppyImages from "../resources/puppyImages";
 
 import {
   View,
@@ -62,7 +63,7 @@ export default class PuppyList extends React.Component {
                 <View style={{ width: "100%" }}>
                   <Image
                     style={{ width: "100%", height: 150 }}
-                    source={{ uri: puppy.imageUrl }}
+                    source={puppyImages[puppy.name]}
                     resizeMode="cover"
                   />
                   <Text style={styles.puppyNames}>{puppy.name}</Text>
