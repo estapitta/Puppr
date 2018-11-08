@@ -10,7 +10,10 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import PuppyList from "./screens/PuppyList";
-import { createStackNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
 type Props = {};
 //put here all the routes of my screens
@@ -27,8 +30,16 @@ const RootStack = createStackNavigator(
     initialRouteName: "Home"
   }
 );
+
+const TabNavigator = createBottomTabNavigator({
+  Search: RootStack,
+  Favorites: {
+    screen: PuppyList
+  }
+});
+
 export default class App extends Component<Props> {
   render() {
-    return <RootStack />;
+    return <TabNavigator />;
   }
 }
