@@ -73,13 +73,15 @@ class FormView extends React.Component {
             marginTop: 20
           }}
           onPress={() => {
-            const okAction = () => {
-              this.props.navigation.goBack();
-            };
             const alertTitle = "Mail sent";
             const alertMessage = `You have made ${puppyName} a very happy puppy! You'll hear back from us soon`;
             Alert.alert(alertTitle, alertMessage, [
-              { title: "OK", onPress: okAction }
+              {
+                title: "OK",
+                onPress: () => {
+                  this.props.navigation.goBack();
+                }
+              }
             ]);
           }}
         >
