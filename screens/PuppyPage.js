@@ -1,18 +1,15 @@
 import React from "react";
 
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableHighlight
-} from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import puppyImages from "../resources/puppyImages";
 import Sound from "react-native-sound";
 
 export default class PuppyPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
-    const puppy = navigation.getParam("puppy") || {};
+    const puppy = navigation.getParam("puppy", {});
+    const isFavorite = navigation.getParam("isFavorite", false);
+    const tintColor = isFavorite ? "#e91e63" : "#000000";
+    const toggleFavorite = navigation.getParam("toggleFavorite", () => {})
     return {
       title: puppy.name,
       headerStyle: {
@@ -21,11 +18,36 @@ export default class PuppyPage extends React.Component {
       headerTintColor: "#000",
       headerTitleStyle: {
         fontSize: 30,
+        paddingTop: 13,
         fontFamily: "Academy Engraved LET"
       },
-      headerBackTitle: null
+      headerBackTitle: null,
+      headerRight: (
+        <TouchableOpacity onPress={toggleFavorite}>
+          <Image
+            source={require("../resources/favorite.png")}
+            style={{ width: 30, height: 30, tintColor, marginRight:20 }}
+          />
+        </TouchableOpacity>
+      )
     };
   };
+
+  componentDidUpdate(prevProps) {
+    if(this.props.isFavorite !== prevProps.isFavorite) {
+      //this.props.isFavorite should be checked by looking into the store state for the puppys id
+      this.props.navigation.setParams({isFavorite: this.props.isFavorite})
+    }
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({toggleFavorite:this.toggleFavorite})
+  }
+
+  toggleFavorite = () => {
+    //If puppy is favorite, dispatch to store to remove it,
+    //If its not favorite, dispatch to add it as favorite
+  }
 
   sound = null;
   playSound = soundUrl => {
@@ -143,10 +165,10 @@ export default class PuppyPage extends React.Component {
               }}
             />
           </View>
-          <TouchableHighlight
+          <TouchableOpacity
             style={{
               alignItems: "center",
-              width: "70%",
+              width: "100%",
               padding: 15,
               borderColor: "black",
               backgroundColor: "#62AB42",
@@ -156,14 +178,32 @@ export default class PuppyPage extends React.Component {
               marginTop: 20
             }}
             onPress={() => {
-              this.playSound(puppy.sound || "");
+              this.props.navigation.navigate("FormView", {puppyName:puppy.name})
             }}
           >
             <Text style={{ fontWeight: "bold", color: "white", fontSize: 18 }}>
+              Ask About Me!
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+        <TouchableOpacity
+            style={{
+              alignItems: "center",
+              padding: 10,
+              borderColor: "black",
+              backgroundColor: "#e91e63",
+              position: "absolute",
+              top: 10,
+              right:10
+            }}
+            onPress={() => {
+              this.playSound(puppy.sound || "");
+            }}
+          >
+            <Text style={{ fontWeight: "bold", color: "white", fontSize: 14, flex:1 }}>
               Woof!
             </Text>
-          </TouchableHighlight>
-        </ScrollView>
+          </TouchableOpacity>
       </View>
     );
   }

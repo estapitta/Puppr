@@ -12,10 +12,10 @@ import {
   Image
 } from "react-native";
 
-class PuppyList extends React.Component {
+class FavoritePuppiesList extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Check Us Out",
+      title: "Your Favorites",
       headerStyle: {
         backgroundColor: "#c5e8d6"
       },
@@ -37,35 +37,21 @@ class PuppyList extends React.Component {
   };
 
   render() {
-    const age = this.props.navigation.getParam("age");
-    const gender = this.props.navigation.getParam("gender");
-    let filteredPuppies = puppyData.filter(puppy => {
-      if (age) {
-        return puppy.age === age;
-      } else {
-        return true;
-      }
-    });
-    filteredPuppies = filteredPuppies.filter(puppy => {
-      if (gender) {
-        return puppy.gender === gender;
-      } else {
-        return true;
-      }
-    });
+
+    //Filter the puppies in puppyData by checking if their id exists in the store state
+    const filteredPuppies = [];
 
     return (
       <View style={styles.container}>
         {filteredPuppies.length === 0 ? (
-          <Text style={{fontSize:20, fontFamily:"HelveticaNeue-Bold"}}>Check back soon for more pups</Text>
+          <Text style={{fontSize:20, fontFamily:"HelveticaNeue-Bold"}}>No favorites yet :(</Text>
         ) : (
           <ScrollView
             style={{ width: "100%" }}
             contentContainerStyle={{
               flexWrap: "wrap",
               flexDirection: "row",
-              justifyContent: "center",
-              paddingVertical:10
+              justifyContent: "center"
             }}
           >
             {filteredPuppies.map(puppy => {
@@ -107,10 +93,9 @@ const styles = StyleSheet.create({
     margin: 10
   },
   puppyNames: {
-    fontSize: 16,
+    fontSize: 15,
     textAlign: "center",
-    margin: 10,
-    fontWeight: "700"
+    margin: 10
   },
   selectionButton: {
     alignItems: "center",
@@ -119,12 +104,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderColor: "black",
     borderWidth: 1,
-    backgroundColor:"white",
-    margin: 5,
-    shadowColor: "black",
-    shadowOffset:{width:2, height: 4},
-    shadowOpacity: 0.7,
-    shadowRadius: 2
+    margin: 5
   }
 });
 
@@ -134,4 +114,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(PuppyList);
+export default connect(mapStateToProps)(FavoritePuppiesList);

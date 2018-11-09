@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
   TouchableOpacity,
   Picker,
   Image,
@@ -14,16 +13,7 @@ import puppyImages from "../resources/puppyImages";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Puppr",
-    headerStyle: {
-      backgroundColor: "#c5e8d6"
-    },
-    headerTintColor: "#000",
-    headerTitleStyle: {
-      fontSize: 30,
-      fontFamily: "Academy Engraved LET"
-    },
-    headerBackTitle: null
+    header: null
   };
   constructor() {
     super();
@@ -41,7 +31,7 @@ export default class HomeScreen extends React.Component {
         <Picker
           style={{
             position: "absolute",
-            height: "33%",
+            height: "40%",
             width: "100%",
             bottom: 0,
             backgroundColor: "white"
@@ -124,6 +114,17 @@ export default class HomeScreen extends React.Component {
           style={{ width: "100%", height: "100%" }}
           imageStyle={{ resizeMode: "cover" }}
         >
+          <Text
+            style={{
+              fontSize: 90,
+              fontFamily: "Academy Engraved LET",
+              fontWeight: "500",
+              alignSelf:"center",
+              marginTop: 60
+            }}
+          >
+            Puppr
+          </Text>
           <TouchableOpacity
             style={styles.container}
             activeOpacity={1}
@@ -134,8 +135,7 @@ export default class HomeScreen extends React.Component {
               });
             }}
           >
-            <Text style={styles.welcome}>Welcome to Puppr</Text>
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={this.onPressAge}
               underlayColor="#d3d3d3"
               style={styles.selectionButton}
@@ -143,8 +143,8 @@ export default class HomeScreen extends React.Component {
               <Text>
                 {this.state.age.length === 0 ? "Select Age" : this.state.age}
               </Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={this.onPressGender}
               underlayColor="#d3d3d3"
               style={styles.selectionButton}
@@ -154,13 +154,39 @@ export default class HomeScreen extends React.Component {
                   ? "Select Gender"
                   : this.state.gender}
               </Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.onPressFind}
-              underlayColor="#d3d3d3"
+            </TouchableOpacity>
+            <ImageBackground
+              style={{
+                marginTop: 40,
+                marginBottom: 30,
+                width: 200,
+                height: 200,
+                justifyContent: "flex-end",
+                transform: [{ rotate: "15 deg" }]
+              }}
+              source={require("../resources/pawLight.png")}
             >
-              <Text>Find</Text>
-            </TouchableHighlight>
+              <TouchableOpacity
+                onPress={this.onPressFind}
+                underlayColor="#d3d3d3"
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flex: 1
+                }}
+              >
+                <Text
+                  style={{
+                    marginTop: 100,
+                    marginLeft: 5,
+                    fontSize: 20,
+                    fontWeight: "600"
+                  }}
+                >
+                  Fetch!
+                </Text>
+              </TouchableOpacity>
+            </ImageBackground>
             {this.renderAgePicker()}
             {this.renderGenderPicker()}
           </TouchableOpacity>
@@ -173,10 +199,10 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "transparent",
-    paddingBottom: 60
+    paddingBottom: 0
   },
   welcome: {
     fontSize: 20,
@@ -186,10 +212,11 @@ const styles = StyleSheet.create({
   selectionButton: {
     alignItems: "center",
     width: "70%",
-    padding: 5,
+    padding: 10,
     borderColor: "black",
     backgroundColor: "#EEEEEE",
     borderWidth: 1,
-    borderRadius: 45
+    borderRadius: 45,
+    marginTop: 20
   }
 });

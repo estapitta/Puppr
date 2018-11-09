@@ -7,11 +7,12 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Image } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import PuppyList from "./screens/PuppyList";
 import PuppyPage from "./screens/PuppyPage";
-import About from "./screens/About";
+import FormView from "./screens/FormView";
+import FavoritePuppiesList from "./screens/FavoritePuppiesList";
 import {
   createStackNavigator,
   createBottomTabNavigator
@@ -34,6 +35,9 @@ const RootStack = createStackNavigator(
     },
     PuppyPage: {
       screen: PuppyPage
+    },
+    FormView: {
+      screen: FormView
     }
   },
   {
@@ -41,17 +45,50 @@ const RootStack = createStackNavigator(
   }
 );
 
-const TabNavigator = createBottomTabNavigator(
+const FavoritesStack = createStackNavigator(
   {
-    Search: RootStack,
-    Favorites: {
-      screen: PuppyList
+    FavoritePuppiesList: {
+      screen: FavoritePuppiesList
     },
-    About: {
-      screen: About
+    PuppyPage: {
+      screen: PuppyPage
+    },
+    FormView: {
+      screen: FormView
     }
   },
+  {
+    initialRouteName: "FavoritePuppiesList"
+  }
+);
 
+const TabNavigator = createBottomTabNavigator(
+  {
+    Search: {
+      screen: RootStack,
+      navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+          <Image
+          source={require("./resources/pawLight.png")}
+                
+                style={{height:20, width:20, tintColor}}
+            />
+        )
+    })
+    },
+    Favorites: {
+      screen: FavoritesStack,
+      navigationOptions: () => ({
+        title:"Favorites",
+        tabBarIcon: ({tintColor}) => (
+          <Image
+          source={require("./resources/favorite.png")}
+                style={{height:20, width:20, tintColor}}
+            />
+        )
+    })
+    }
+  },
   {
     tabBarOptions: {
       activeTintColor: "#e91e63",
