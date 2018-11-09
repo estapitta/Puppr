@@ -12,15 +12,24 @@ import {
 } from "react-native";
 
 export default class PuppyList extends React.Component {
-  // constructor() {
-  //   super();
-  //   // this.state = {
-  //   //   name: ""
-  //   // };
-  // }
-  onPressName = () => {};
-  onPressPuppyPage = () => {
-    this.props.navigation.navigate("PuppyPage");
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerStyle: {
+        backgroundColor: "#c5e8d6"
+      },
+      headerTintColor: "#000",
+      headerTitleStyle: {
+        fontSize: 30,
+        fontFamily: "Academy Engraved LET"
+      },
+      headerBackTitle: null
+    };
+  };
+
+  onPressName = puppy => {
+    this.props.navigation.navigate("PuppyPage", {
+      puppy: puppy
+    });
   };
 
   render() {
@@ -56,7 +65,7 @@ export default class PuppyList extends React.Component {
             return (
               <TouchableHighlight
                 key={puppy.id}
-                onPress={this.onPressName}
+                onPress={() => this.onPressName(puppy)}
                 underlayColor="#d3d3d3"
                 style={styles.selectionButton}
               >

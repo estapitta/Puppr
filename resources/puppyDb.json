@@ -98,5 +98,25 @@
     "breed": "Aussiedoodle",
     "age": "6 months",
     "color": "white-brown"
+  },
+  {
+    "id": 11,
+    "name": "Boo",
+    "description": "Aren't I the cutest thing you have ever seen? Everyone loves a puppy, but before you bring me home there are a couple of things you need to consider. I am a blank slate- I'm not housetrained (potty-trained), chew trained, and don't know anything yet. Like a new baby, I will need a lot of attention, a lot of love, and constant supervision. To become a well rounded dog- I would do best starting in a training class where I can learn to be social with not only people, but other dogs as well. If you have the time, love, and patience to take care of me, I promise to be your best friend.",
+    "gender": "Female",
+    "imageUrl": "https://www.dog-breeds-expert.com/images/IMG_6124.jpg",
+    "breed": "Great Pyrenees",
+    "age": "3 months",
+    "color": "white"
+  },
+  {
+    "id": 12,
+    "name": "Lucky",
+    "description": "This fun-loving herding dog resembles a fox with his prick ears, wedge-shaped head and thick coat. He is bold but kind and likes to be in charge — or at least constantly involved in everything that’s going on. Most often he’s a family companion, but he can still herd with the best of them.",
+    "gender": "Female",
+    "imageUrl": "https://am22.akamaized.net/tms/cnt/uploads/2013/07/pet-580x435.jpg",
+    "breed": "Corgi",
+    "age": "2 months",
+    "color": "white-brown"
   }
 ]

@@ -1,4 +1,5 @@
 export default {
+  background: require("./Background.png"),
   Lincoln: require("./Lincoln.jpg"),
   Brez: require("./Brez.jpg"),
   Sarah: require("./Sarah.jpg"),
@@ -8,5 +9,7 @@ export default {
   Jenny: require("./Jenny.jpg"),
   Seth: require("./Seth.jpg"),
   Tucker: require("./Tucker.jpg"),
-  Teddy: require("./Teddy.jpg")
+  Teddy: require("./Teddy.jpg"),
+  Boo: require("./Boo.jpg"),
+  Lucky: require("./Lucky.jpg")
 };

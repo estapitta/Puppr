@@ -5,8 +5,12 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
-  Picker
+  Picker,
+  Image,
+  ImageBackground
 } from "react-native";
+
+import puppyImages from "../resources/puppyImages";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -18,7 +22,8 @@ export default class HomeScreen extends React.Component {
     headerTitleStyle: {
       fontSize: 30,
       fontFamily: "Academy Engraved LET"
-    }
+    },
+    headerBackTitle: null
   };
   constructor() {
     super();
@@ -113,43 +118,54 @@ export default class HomeScreen extends React.Component {
   };
   render() {
     return (
-      <TouchableOpacity
-        style={styles.container}
-        activeOpacity={1}
-        onPress={() => {
-          this.setState({
-            showAgePicker: false,
-            showGenderPicker: false
-          });
-        }}
-      >
-        <Text style={styles.welcome}>Welcome to Puppr</Text>
-        <TouchableHighlight
-          onPress={this.onPressAge}
-          underlayColor="#d3d3d3"
-          style={styles.selectionButton}
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ImageBackground
+          source={puppyImages["background"]}
+          style={{ width: "100%", height: "100%" }}
+          imageStyle={{ resizeMode: "cover" }}
         >
-          <Text>
-            {this.state.age.length === 0 ? "Select Age" : this.state.age}
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={this.onPressGender}
-          underlayColor="#d3d3d3"
-          style={styles.selectionButton}
-        >
-          <Text>
-            {this.state.gender.length === 0
-              ? "Select Gender"
-              : this.state.gender}
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.onPressFind} underlayColor="#d3d3d3">
-          <Text>Find</Text>
-        </TouchableHighlight>
-        {this.renderAgePicker()}
-        {this.renderGenderPicker()}
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.container}
+            activeOpacity={1}
+            onPress={() => {
+              this.setState({
+                showAgePicker: false,
+                showGenderPicker: false
+              });
+            }}
+          >
+            <Text style={styles.welcome}>Welcome to Puppr</Text>
+            <TouchableHighlight
+              onPress={this.onPressAge}
+              underlayColor="#d3d3d3"
+              style={styles.selectionButton}
+            >
+              <Text>
+                {this.state.age.length === 0 ? "Select Age" : this.state.age}
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={this.onPressGender}
+              underlayColor="#d3d3d3"
+              style={styles.selectionButton}
+            >
+              <Text>
+                {this.state.gender.length === 0
+                  ? "Select Gender"
+                  : this.state.gender}
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={this.onPressFind}
+              underlayColor="#d3d3d3"
+            >
+              <Text>Find</Text>
+            </TouchableHighlight>
+            {this.renderAgePicker()}
+            {this.renderGenderPicker()}
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
     );
   }
 }
@@ -159,7 +175,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#F5FCFF",
+    backgroundColor: "transparent",
     paddingBottom: 60
   },
   welcome: {
@@ -172,6 +188,8 @@ const styles = StyleSheet.create({
     width: "70%",
     padding: 5,
     borderColor: "black",
-    borderWidth: 1
+    backgroundColor: "#EEEEEE",
+    borderWidth: 1,
+    borderRadius: 45
   }
 });
