@@ -8,6 +8,7 @@ import {
   TouchableHighlight
 } from "react-native";
 import puppyImages from "../resources/puppyImages";
+import Sound from "react-native-sound";
 
 export default class PuppyPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -24,6 +25,25 @@ export default class PuppyPage extends React.Component {
       },
       headerBackTitle: null
     };
+  };
+
+  sound = null;
+  playSound = soundUrl => {
+    if (this.sound) {
+      this.sound.stop();
+      this.sound.release();
+      this.sound = null;
+    } else {
+      this.sound = new Sound(soundUrl, Sound.MAIN_BUNDLE, error => {
+        if (error) {
+          // do something
+          console.log(error);
+        }
+
+        // play when loaded
+        this.sound.play();
+      });
+    }
   };
 
   render() {
@@ -134,6 +154,9 @@ export default class PuppyPage extends React.Component {
               borderRadius: 45,
               alignSelf: "center",
               marginTop: 20
+            }}
+            onPress={() => {
+              this.playSound(puppy.sound || "");
             }}
           >
             <Text style={{ fontWeight: "bold", color: "white", fontSize: 18 }}>

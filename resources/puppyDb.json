@@ -27,7 +27,8 @@
     "imageUrl": " http://www.cutestpaw.com/wp-content/uploads/2012/02/Dachshund-puppy-wearing-a-sweater.jpg",
     "breed": "Dachshund",
     "age": "8 months",
-    "color": "brown"
+    "color": "brown",
+    "sound": "dachshund.mp3"
   },
   {
     "id": 4,
@@ -87,7 +88,8 @@
     "imageUrl": " https://www.fancypuppystore.com/wp-content/uploads/2016/12/siberian-husky-for-sale.jpg",
     "breed": "Siberian Husky",
     "age": "5 months",
-    "color": "brown-white"
+    "color": "brown-white",
+    "sound": "tucker.mp3"
   },
   {
     "id": 10,
@@ -107,7 +109,8 @@
     "imageUrl": "https://www.dog-breeds-expert.com/images/IMG_6124.jpg",
     "breed": "Great Pyrenees",
     "age": "3 months",
-    "color": "white"
+    "color": "white",
+    "sound": "tucker.mp3"
   },
   {
     "id": 12,
@@ -117,6 +120,7 @@
     "imageUrl": "https://am22.akamaized.net/tms/cnt/uploads/2013/07/pet-580x435.jpg",
     "breed": "Corgi",
     "age": "2 months",
-    "color": "white-brown"
+    "color": "white-brown",
+    "sound": "lucky.mp3"
   }
 ]

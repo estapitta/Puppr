@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "^16.6.1",
     "react-native": "0.57.4",
+    "react-native-sound": "^0.10.9",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1"
