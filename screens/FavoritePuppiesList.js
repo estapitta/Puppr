@@ -37,14 +37,17 @@ class FavoritePuppiesList extends React.Component {
   };
 
   render() {
-
     //Filter the puppies in puppyData by checking if their id exists in the store state
-    const filteredPuppies = [];
+    const filteredPuppies = puppyData.filter(puppy => {
+      return this.props.favorites.indexOf(puppy.id) !== -1;
+    });
 
     return (
       <View style={styles.container}>
         {filteredPuppies.length === 0 ? (
-          <Text style={{fontSize:20, fontFamily:"HelveticaNeue-Bold"}}>No favorites yet :(</Text>
+          <Text style={{ fontSize: 20, fontFamily: "HelveticaNeue-Bold" }}>
+            No favorites yet :(
+          </Text>
         ) : (
           <ScrollView
             style={{ width: "100%" }}
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    favorites: state.favorites
+    favorites: state
   };
 };
 

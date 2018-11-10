@@ -20,8 +20,8 @@ import {
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import favoritePuppyReducer from "./resources/store/favorite";
-const store = createStore(favoritePuppyReducer);
+import favoritePuppies from "./resources/store/favorite";
+const store = createStore(favoritePuppies);
 
 type Props = {};
 //put here all the routes of my screens
@@ -67,26 +67,25 @@ const TabNavigator = createBottomTabNavigator(
     Search: {
       screen: RootStack,
       navigationOptions: () => ({
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Image
-          source={require("./resources/pawLight.png")}
-                
-                style={{height:20, width:20, tintColor}}
-            />
+            source={require("./resources/pawLight.png")}
+            style={{ height: 20, width: 20, tintColor }}
+          />
         )
-    })
+      })
     },
     Favorites: {
       screen: FavoritesStack,
       navigationOptions: () => ({
-        title:"Favorites",
-        tabBarIcon: ({tintColor}) => (
+        title: "Favorites",
+        tabBarIcon: ({ tintColor }) => (
           <Image
-          source={require("./resources/favorite.png")}
-                style={{height:20, width:20, tintColor}}
-            />
+            source={require("./resources/favorite.png")}
+            style={{ height: 20, width: 20, tintColor }}
+          />
         )
-    })
+      })
     }
   },
   {

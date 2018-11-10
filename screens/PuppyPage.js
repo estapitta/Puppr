@@ -3,13 +3,15 @@ import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import puppyImages from "../resources/puppyImages";
 import Sound from "react-native-sound";
+import { selectFavorite, removePuppy } from "../resources/store/favorite";
+import { connect } from "react-redux";
 
-export default class PuppyPage extends React.Component {
+class PuppyPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const puppy = navigation.getParam("puppy", {});
     const isFavorite = navigation.getParam("isFavorite", false);
     const tintColor = isFavorite ? "#e91e63" : "#000000";
-    const toggleFavorite = navigation.getParam("toggleFavorite", () => {})
+    const toggleFavorite = navigation.getParam("toggleFavorite", () => {});
     return {
       title: puppy.name,
       headerStyle: {
@@ -26,7 +28,7 @@ export default class PuppyPage extends React.Component {
         <TouchableOpacity onPress={toggleFavorite}>
           <Image
             source={require("../resources/favorite.png")}
-            style={{ width: 30, height: 30, tintColor, marginRight:20 }}
+            style={{ width: 30, height: 30, tintColor, marginRight: 20 }}
           />
         </TouchableOpacity>
       )
@@ -34,20 +36,30 @@ export default class PuppyPage extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if(this.props.isFavorite !== prevProps.isFavorite) {
+    if (this.props.isFavorite !== prevProps.isFavorite) {
       //this.props.isFavorite should be checked by looking into the store state for the puppys id
-      this.props.navigation.setParams({isFavorite: this.props.isFavorite})
+      this.props.navigation.setParams({ isFavorite: this.props.isFavorite });
     }
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({toggleFavorite:this.toggleFavorite})
+    this.props.navigation.setParams({
+      toggleFavorite: this.toggleFavorite,
+      isFavorite: this.props.isFavorite
+    });
   }
 
   toggleFavorite = () => {
     //If puppy is favorite, dispatch to store to remove it,
+    const puppy = this.props.navigation.getParam("puppy", {});
+
+    if (this.props.isFavorite) {
+      this.props.removeFavorite(puppy.id);
+    } else {
+      this.props.addFavorite(puppy.id);
+    }
     //If its not favorite, dispatch to add it as favorite
-  }
+  };
 
   sound = null;
   playSound = soundUrl => {
@@ -69,7 +81,7 @@ export default class PuppyPage extends React.Component {
   };
 
   render() {
-    const puppy = this.props.navigation.getParam("puppy") || {};
+    const puppy = this.props.navigation.getParam("puppy", {});
 
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -178,7 +190,9 @@ export default class PuppyPage extends React.Component {
               marginTop: 20
             }}
             onPress={() => {
-              this.props.navigation.navigate("FormView", {puppyName:puppy.name})
+              this.props.navigation.navigate("FormView", {
+                puppyName: puppy.name
+              });
             }}
           >
             <Text style={{ fontWeight: "bold", color: "white", fontSize: 18 }}>
@@ -187,24 +201,50 @@ export default class PuppyPage extends React.Component {
           </TouchableOpacity>
         </ScrollView>
         <TouchableOpacity
+          style={{
+            alignItems: "center",
+            padding: 10,
+            borderColor: "black",
+            backgroundColor: "#e91e63",
+            position: "absolute",
+            top: 10,
+            right: 10
+          }}
+          onPress={() => {
+            this.playSound(puppy.sound || "");
+          }}
+        >
+          <Text
             style={{
-              alignItems: "center",
-              padding: 10,
-              borderColor: "black",
-              backgroundColor: "#e91e63",
-              position: "absolute",
-              top: 10,
-              right:10
-            }}
-            onPress={() => {
-              this.playSound(puppy.sound || "");
+              fontWeight: "bold",
+              color: "white",
+              fontSize: 14,
+              flex: 1
             }}
           >
-            <Text style={{ fontWeight: "bold", color: "white", fontSize: 14, flex:1 }}>
-              Woof!
-            </Text>
-          </TouchableOpacity>
+            Woof!
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state, props) => {
+  const puppy = props.navigation.getParam("puppy", {});
+  return {
+    isFavorite: state.indexOf(puppy.id) !== -1
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addFavorite: puppyId => dispatch(selectFavorite(puppyId)),
+    removeFavorite: puppyId => dispatch(removePuppy(puppyId))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PuppyPage);
